@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+        <title>This is the calendar test ground with some functionalities</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+        <style>
+                body            { padding-top:80px; }
+        </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="jumbotron text-center">
+      <h1><span class="fa fa-lock"></span> Calendar testground with functionalities</h1>
+      <p> Welcome <%=user.google.name %> (this name should now be in req.user) </p>
+
+      <p>Click this to see if the req.user data trasfers (a get function to the same page)</p>
+      <form action= "/calendar" method = "get">  <input type = "submit">
+      </form>
+      <p>Here will be buttons and forms for reading and displaying the calendar of choice. Google Calendar.</p>
+      <form action= "/calendar" method = "post">
+	<p>
+	  <label> Click to open calendar! </label>
+	  <input type = "submit">
+	</p>
+      </form>
+      <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
+      <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
+      <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
