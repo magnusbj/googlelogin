@@ -1,10 +1,16 @@
-module.exports = function(app, passport) {
+var gcal = require('google-calendar');
+var bodyParser = require('body-parser');
+var moment = require('moment'); // for setting date
+
+module.exports = function(app, passport, winston) {
+
 
     // =====================================
     // HOME PAGE (with login links) ========
     // =====================================
     app.get('/', function(req, res) {
 	res.render('index.ejs'); // load the index.ejs file
+	console.log(req.ip);
 	});
 
     // =====================================
@@ -73,9 +79,36 @@ module.exports = function(app, passport) {
     // the callback after google has authenticated the user
     app.get('/auth/google/callback',
             passport.authenticate('google', {
-                    successRedirect : '/profile',
-                    failureRedirect : '/'
-            }));
+                successRedirect : '/profile',
+                failureRedirect : '/'
+            })
+	   );
+    // =============================
+    // Google calendar functions
+    // =============================
+    // following the google API
+
+    app.get('/calendar', isLoggedIn, function(req, res){
+	console.log(req.ip);
+	res.render('calendar.ejs', {
+	user : req.user }
+		  );
+    });
+
+    app.post('/calendar', isLoggedIn, function(req, res){
+	var accessToken = req.user.google.token;
+	console.log("Token: " + accessToken);
+	var time = new Date().toISOString();
+	var google_calendar = new gcal.GoogleCalendar(accessToken);
+	google_calendar.events.list('johanne.fonnes@gmail.com', {timeMin: time, orderBy: 'startTime', singleEvents: 'True'}, function (err, data){
+	    if (err){ console.log("Something wrong: " + err)};
+            res.render('events.ejs', {
+		user : req.user,
+		data: data,
+		moment: moment}
+                      );
+	});
+    });
 
 };
 

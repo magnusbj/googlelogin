@@ -13,10 +13,14 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
+var winston = require('winston');
 
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
+// set up logger (winston)
+winston.add(winston.transports.File, {filename: './run.log'});
+
 mongoose.connect(configDB.url); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
@@ -35,8 +39,9 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./app/routes.js')(app, passport, winston); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
 app.listen(port);
-console.log('The magic happens on port ' + port)
+console.log('The magic happens on port ' + port);
+winston.log('info', "this is it!");
