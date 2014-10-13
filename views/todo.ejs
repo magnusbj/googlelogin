@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Create todo</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+  </head>
+
+  <body>
+    
+    <div class="container">
+      <div class="row">
+	<div class="col-xs-4">
+	  <form action="/todo" method="post" class="form-signin">
+	    <h2><span class="label label-info"> What? </span><br>
+	      <div class="btn-group">
+		<input type="text" id="btn1" name="what" class="form-control" placeholder="what to do" autofocus> </h2>
+	    <h2><span class= "label label-info"> Who? </span><br>
+	      <div class="btn-group">
+		<button type="radio" class="btn btn-primary" name="whodoes" value="0"><%=usernames[0]%></button>
+		<button type="radio" class="btn btn-danger" name="whodoes" value="1"><%=usernames[1]%></button> </h2>
+	    </div>
+	    </div>
+	  </form>
+	</div>
+      </div>
+    </div>
+    
+    <%if (typeof message !== 'undefined'){ %>
+    <div class="container">
+      <div class="row">
+	<div class="col-xs-3">
+	  <div class="alert alert-success" role="alert"> <%=message%>
+	  </div>
+	</div>
+      </div>
+    </div>
+      <%}%>
+    </div> <!-- /container -->
+  </body>
+</html>

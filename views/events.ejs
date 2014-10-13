@@ -1,34 +1,51 @@
 <!doctype html>
 <html>
 <head>
-        <title>This is the calendar test ground with some functionalities</title>
+        <title>Family affairs</title>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-        <style>
-                body            { padding-top:80px; }
-        </style>
 </head>
 <body>
   <div class="container">
-    <div class="jumbotron text-center">
-      <h1><span class="fa fa-cog"></span> Upcoming events</h1>
+    <div class="page-header text-center">
+      <h1><span class="fa fa-check-square-o"></span> Upcoming events</h1>
     </div>
   </div>
   <div class="container">
     <div class="row">
-      <% for (i=0; i<data.items.length; i++) { %>
       <div class="col-sm-6">
+	<h3><span class="glyphicon glyphicon-tasks"></span> Todo</h3>
       </div>
+      <div class="col-sm-6">
+        <h3><span class="glyphicon glyphicon-calendar"></span> Calendar </h3>
+      </div>
+
+      <div class="col-sm-6">
+	<div class="list-group">
+	  <% for (j=0; j<todos.length; j++) { %>
+	     <a href=<%="/calendar/" + j%> class="list-group-item list-group-item-danger">
+	       <% if (todos[j].user_id=='Magnus Tvedt'){ %>
+	       <span class="badge alert-success">Magnus</span>
+	       <% } else { %>
+	       <span class="badge alert-warning">Johanne</span>
+	       <% } %>
+	      <h4 class="list-group-item-heading"><%= todos[j].content %></h4></a>
+	     <% } %>
+	</div>
+	
+      </div>
+
       <div class ="col-sm-6">
+      <% for (i=0; i<data.items.length; i++) { %>
 	<div class="panel panel-info">
 	  <div class="panel-heading"> <h4> <%= data.items[i].summary%> </h4></div>
 	  <div class="panel-body"> <%= moment(data.items[i].start.dateTime).zone(-2).format("ddd, MMM Do, h:mm a") %>  </div>
 	</div>
-
-      </div>
       <%}%>
-    </div>
+      </div>
 
-      <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
+    </div>
+    <p><a href="/auth/google" class="btn btn-info"><span class="fa fa-google-plus"></span> Google</a>
+      <span class="alert-info">Click google button to refresh page </span></p>
 </body>
 </html>
